@@ -11,9 +11,17 @@ command1 = argv[1]
 command2 = argv[2]
 
 
-def concat_audios(sound_dir=command1, output_name=command2):
+def path_validation(dir_path):
+    if dir_path[-1:] is not '/':
+        dir_path = dir_path + '/'
+        print(dir_path)
+    return dir_path
+
+
+def concatenate(sound_dir=command1, output_name=command2):
 
     chdir(sound_dir)
+    sound_dir = path_validation(sound_dir)
     sound_file = glob('*.wav')
     for file in sound_file:
         audio_array.append(file)
@@ -28,4 +36,4 @@ def concat_audios(sound_dir=command1, output_name=command2):
 
 
 if __name__ == '__main__':
-    concat_audios()
+    concatenate()
