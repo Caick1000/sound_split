@@ -5,6 +5,10 @@ from os import path, getcwd
 #command1 = argv[1]
 
 audios = []
+<<<<<<< HEAD
+=======
+audio_chunks = []
+>>>>>>> d2234f5e500b43418ec638ec8726585824e44622
 
 
 
@@ -15,10 +19,17 @@ def name_validation(path_name, file_name):
     if path_name is not None:
         
         if path.exists(path_name):
+<<<<<<< HEAD
             print('Valid path')
 
         else:
             print('Invalid path')
+=======
+            print("Valid path")
+
+        else:
+            print("Invalid path")
+>>>>>>> d2234f5e500b43418ec638ec8726585824e44622
             path_name = getcwd()
             print(path_name)
 
@@ -26,11 +37,19 @@ def name_validation(path_name, file_name):
     if file_name is not None:
         
         if path.exists(file_name):
+<<<<<<< HEAD
             print('Valid output file path')
 
         else:
             print('Invalid output file path')
             file_name = (current_path + '\File')
+            print(file_name)
+=======
+            print("Valid output file path")
+
+        else:
+            print("Invalid output file path")
+            file_name = (current_path + "\File")
             print(file_name)
 
 
@@ -38,7 +57,15 @@ def name_validation(path_name, file_name):
 def slice_audio(sound_dir, output_path):
     
     name_validation(sound_dir, output_path)
+>>>>>>> d2234f5e500b43418ec638ec8726585824e44622
+
+
+
+def slice_audio(sound_dir, output_path):
+    
+    name_validation(sound_dir, output_path)
     sound = AudioSegment.from_wav(sound_dir)
+<<<<<<< HEAD
 
     loudness = sound.dBFS
     print(loudness)
@@ -54,6 +81,19 @@ def slice_audio(sound_dir, output_path):
 
 slice_audio('C:/sample_test/tudo.wav', 'C:/sample_test/test')
 
+=======
+    sliced = silence.split_on_silence(sound, min_silence_len=100, silence_thresh=-16)
+
+    for i, chunks in enumerate(sliced):
+        print("-->", i, chunks)
+        audio_chunks.append(chunks)
+        chunks.export(output_path + str(i) + '.wav', format='wav')
+        
+
+
+slice_audio("C:/sample_test/numeros.wav", "C:/sample_test/test")
+
+>>>>>>> d2234f5e500b43418ec638ec8726585824e44622
     
 
 #if __name__ == '__main__':
