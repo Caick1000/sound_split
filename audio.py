@@ -3,6 +3,7 @@ from os import chdir, getcwd, path
 from pydub import AudioSegment
 from sys import exc_info
 import argparse
+from time import sleep
 
 audio_array = []
 audios = []
@@ -20,17 +21,18 @@ args = parser.parse_args()
 def path_validation(path_name):
         
     if path.exists(path_name):
-        print('Valid path =>', path_name )    
+        print('Valid path: ', path_name )
+        sleep(1)    
 
     else:
         print('Invalid path =>', path_name)
         path_name = getcwd()
-        print('Path is now =>', path_name)
+        print('Changing path to: ', path_name)
+        sleep(1)
 
     if path_name[-1:] is not '/':
         path_name = path_name + '/'
 
-    print(path_name)
     return path_name
 
 def filename_validation(file_name):
@@ -46,6 +48,7 @@ def concatenate():
         output_name = args.name
 
         print('Running...')
+        sleep(1)
         sound_dir = path_validation(sound_dir)
         chdir(sound_dir)
         output_name = filename_validation(output_name)
@@ -64,6 +67,7 @@ def concatenate():
 
     except OSError as err:
         print("OS error: {}".format(err))
+
     except ValueError:
         print("Wrong type. Did you type anything else other than a String?")
     except:
