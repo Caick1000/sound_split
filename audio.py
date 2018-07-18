@@ -1,25 +1,37 @@
 from glob import glob
-from os import chdir
+from os import chdir, getcwd, path
 from pydub import AudioSegment
-from sys import argv,  exc_info
+from sys import exc_info
 import argparse
 
 audio_array = []
 audios = []
 audio_extensions = ['.wav','.ogg', 'mp3']
 
+current_path = getcwd()
+
 
 parser = argparse.ArgumentParser(description='Concatenate audios')
-parser.add_argument('-p','--path', help='Path of folder containing the audios', required=True)
-parser.add_argument('-n','--name', help='Name of the concatenated audio file', required=True)
+parser.add_argument('-p','--path', help='Path of folder containing the audios.\nDefault=Current folder', required=False, default=current_path)
+parser.add_argument('-n','--name', help='Name of the concatenated audio file.\nDefault="file"', required=False, default='File')
 args = parser.parse_args()
 
 
-def path_validation(dir_path):
-    if dir_path[-1:] is not '/':
-        dir_path = dir_path + '/'
+def path_validation(path_name):
+        
+    if path.exists(path_name):
+        print('Valid path =>', path_name )    
 
-    return dir_path
+    else:
+        print('Invalid path =>', path_name)
+        path_name = getcwd()
+        print('Path is now =>', path_name)
+
+    if path_name[-1:] is not '/':
+        path_name = path_name + '/'
+
+    print(path_name)
+    return path_name
 
 def filename_validation(file_name):
     if file_name[-3:] not in audio_extensions:
@@ -28,15 +40,14 @@ def filename_validation(file_name):
     return file_name
 
 def concatenate():
-
     try:
 
         sound_dir = args.path
         output_name = args.name
 
         print('Running...')
-        chdir(sound_dir)
         sound_dir = path_validation(sound_dir)
+        chdir(sound_dir)
         output_name = filename_validation(output_name)
         sound_file = glob('*.wav')
         for file in sound_file:
