@@ -81,6 +81,7 @@ def concatenate():
 
     except Exception as error:
         print('Unexpected error: {}'.format(error))
+        print('Do you have permission to access the folder?')
 
     except ValueError:
         print('Wrong type. Did you type anything else other than a String?')
